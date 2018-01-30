@@ -10,7 +10,7 @@ getSocketIo((err, io) => {
         client_io = client;
         console.log('lalala');
         client.on('subscribe', (interval) => {
-            console.log('client is subscr ibing to api');
+            console.log('client is subscribing to api');
             getRecordings('a')
                 .then(data => {
                     console.log(interval);
@@ -33,9 +33,10 @@ router.get('/test', (req, res, next) => {
 /* POST home page. */
 router.post('/', function(req, res, next) {
     const status = req.body.status || '';
+    console.log('STATUS--->' + status);
     const type = req.body.type || '';
     if (type === 'RECORDING_MEETING_COMPLETED') {
-        console.log(req.body)
+        console.log(req.body);
         getRecordings(req.body.content.host_id)
         .then(data => {
             res.sendStatus(200);
