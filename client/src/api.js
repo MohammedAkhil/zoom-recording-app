@@ -2,9 +2,12 @@ import openSocket from 'socket.io-client';
 const  socket = openSocket('http://localhost:1790');
 
 function subscribeToApi(cb) {
+    alert('subscribeToApi');
   socket.on('recording', meetings => {
+      alert(meetings);
       cb(null, getRecordings(meetings));
   });
+  alert(socket + emit);
   socket.emit('subscribe', 1000);
 }
 
