@@ -7,12 +7,20 @@ import Recordings from './Recordings';
 
 class App extends Component {
 
-    constructor(props) {
-        super(props);
+    componentDidMount() {
         subscribeToApi((err, recordings) => {
             this.setState({recordings: recordings, is_loading: false});
         });
     }
+
+    // constructor(props) {
+    //     super(props);
+    //     subscribeToApi((err, recordings) => {
+    //         this.setState({recordings: recordings, is_loading: false});
+    //     });
+    // }
+
+
 
     state = {
         recordings: [],
