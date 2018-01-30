@@ -1,14 +1,22 @@
-const express = require('express');
-
-const app = express();
 const path = require('path');
 const port = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
-const index = require('./route');
+
+const express = require('express'),
+    app = express(),
+    server = require('http').createServer(app),
+    io = require('socket.io').listen(server);
+
+module.exports = (callback) => {
+    callback(null, io);
+};
+
+server.listen(port);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'client/build')));
+const index = require('./route');
 app.use('/api/recordings',index);
 
 // catch 404 and forward to error handler
@@ -28,6 +36,3 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send(res.locals.message);
 });
-
-
-app.listen(port, () => console.log(`Listening on port ${port}`));

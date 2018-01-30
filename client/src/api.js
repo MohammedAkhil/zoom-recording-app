@@ -1,14 +1,13 @@
-import openSocket from 'socket.io-client';
-const  socket = openSocket('http://localhost:1790');
+import io from 'socket.io-client';
+import server from './config/config';
+const socket = io(server);
 
 function subscribeToApi(cb) {
-    alert('subscribeToApi');
-  socket.on('recording', meetings => {
-      alert(meetings);
-      cb(null, getRecordings(meetings));
-  });
-  alert(socket + emit);
-  socket.emit('subscribe', 1000);
+    socket.on('recording', meetings => {
+        alert(meetings);
+        cb(null, getRecordings(meetings));
+    });
+    socket.emit('subscribe', 1000);
 }
 
 const getRecordings = (meetings) => {
@@ -22,6 +21,5 @@ const getRecordings = (meetings) => {
       });
       return recordings;
 };
-
 
 export { subscribeToApi };

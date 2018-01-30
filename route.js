@@ -1,24 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const fetch = require('node-fetch');
-const io = require('socket.io')();
-const port_io = 1790;
+const getSocketIo = require('./server');
 
 let client_io;
-io.listen(port_io);
 
-console.log('listening on port.io', port_io);
-io.on('connection', (client) => {
-    client_io = client;
-    client.on('subscribe', (interval) => {
-        console.log('client is subscribing to api');
-        getRecordings('a')
-        .then(data => {
-            console.log('adsds')
-            client.emit('recording', data.meetings);
-        })
-        .catch(error => {
-            console.log(error);
+getSocketIo((err, io) => {
+    io.sockets.on('connection', (client) => {
+        client_io = client;
+        console.log('lalala');
+        client.on('subscribe', (interval) => {
+            console.log('client is subscr ibing to api');
+            getRecordings('a')
+                .then(data => {
+                    console.log(interval);
+                    /** @namespace data.meetings */
+                    client.emit('recording', data.meetings);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         });
     });
 });
@@ -46,7 +47,6 @@ router.post('/', function(req, res, next) {
         });
     }
 });
-
 
 const getRecordings = user_id => {
     const url = `https://api.zoom.us/v2/users/bxffJu2QT1CckvCzNgbx4A/recordings?from=2018-01-24&to=2018-01-30`;
