@@ -8,6 +8,7 @@ import Recordings from './Recordings';
 class App extends Component {
 
     componentDidMount() {
+        alert("loaded");
         subscribeToApi((err, recordings) => {
             this.setState({recordings: recordings, is_loading: false});
         });
