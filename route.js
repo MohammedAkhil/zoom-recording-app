@@ -47,9 +47,6 @@ router.post('/', function(req, res, next) {
     }
 });
 
-router.get('/load', (req, res, next) => {
-
-})
 
 const getRecordings = user_id => {
     const url = `https://api.zoom.us/v2/users/bxffJu2QT1CckvCzNgbx4A/recordings?from=2018-01-24&to=2018-01-30`;
