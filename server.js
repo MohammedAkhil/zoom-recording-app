@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const index = require('./route');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use('/api/recordings',index);
 
 
