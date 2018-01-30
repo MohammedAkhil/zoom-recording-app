@@ -1,0 +1,24 @@
+{
+  "name": "zoom-x",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && yarn --production=false && yarn run build"
+  },
+  "keywords": [],
+  "author": "",
+  "description": "",
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "express": "^4.16.2",
+    "mongodb": "latest",
+    "node-fetch": "^1.7.3",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  }
+}
