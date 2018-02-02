@@ -1,54 +1,40 @@
 const React = require('react');
-
-function renderRecordings(recordings) {
-    if (recordings.length > 0) {      
-        return recordings.map((recording, index) => (
-            <Recording key={index} recording={recording} />
-        ));
-    }
-    else return [];
-} 
   
-const Recording = ({recording}) => {
-    return ( 
-        <li className="App-list"><recording key={recording.id}>
-        <a href={recording.video}>{recording.start_time}</a>
-    </recording></li>
-    );
-};
-
-
-function renderAudioRecordings(recordings) {
-    if (recordings.length > 0) {      
-        return recordings.map((recording, index) => (
-            <RecordingAudio key={index*2} recording={recording} />
-        ));
-    }
-    else return [];
-} 
-  
-const RecordingAudio = ({recording}) => {
-    return ( 
-        <li className="App-list"><recording key={recording.id}>
-        <a href={recording.audio}>{recording.start_time}</a>
-    </recording></li>
-    );
-};
-
 
 class Recordings extends React.Component {
+
+    constructor(props) {
+        super(props);
+        Recordings.handleClick = Recordings.handleClick.bind(this);
+    }
+
+    static handleClick(event ,recording) {
+        alert(recording[0].play_url);
+    }
+
+    static renderRecordings(recordings) {
+        if (recordings.length > 0) {
+            return recordings.map((recording, index) => (
+                <li className="App-list">
+                    <recording key={recording.id}>
+                        {recording[0].recording_start}
+                        <button onClick={event => Recordings.handleClick(event, recording)}>
+                            Play
+                        </button>
+                    </recording>
+                </li>
+            ));
+        }
+        else return [];
+    }
+
     render() {
-        const recordings = renderRecordings(this.props.recordings);
-        const audios = renderAudioRecordings(this.props.recordings);
+        const recordings = Recordings.renderRecordings(this.props.recordings);
 
         return (
             <div>
             <section>
                 { recordings }
-            </section>
-            <section>
-                <h3 className="App-list">Audio</h3>
-                { audios }
             </section>
             </div>
         );
