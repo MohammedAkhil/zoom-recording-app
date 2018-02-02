@@ -6,7 +6,9 @@
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.0"
+    "react-scripts": "1.1.0",
+    "video.js": "^6.6.3",
+    "babel-preset-es2015": "^6.24.1"
   },
   "scripts": {
     "start": "react-scripts start",
