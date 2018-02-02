@@ -1,5 +1,4 @@
 const React = require('react');
-  
 
 class Recordings extends React.Component {
 
