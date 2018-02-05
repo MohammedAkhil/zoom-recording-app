@@ -4,7 +4,6 @@ const socket = io(server);
 
 function subscribeToApi(cb) {
     socket.on('recording', meetings => {
-        alert(meetings);
         cb(null, meetings);
     });
     socket.emit('subscribe', 1000);

@@ -38,9 +38,6 @@ class App extends Component {
                     <h1 className="App-title">Zoom Api - Cloud recordings</h1>
                 </header>
 
-                <p className="App-subtitle"> This page gives a list of video and audio recordings from zoom for all <br/>
-                    the meetings initiated from the account of the current user. </p>
-
                 { this.state.is_loading ?  <div id="visible"><img src={loader} className = "App-loader" alt="logo" /> </div>: null }
 
                 <p className="App-intro">

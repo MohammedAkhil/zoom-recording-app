@@ -1,26 +1,35 @@
+import Video from './video/Video';
+import videoJsOptions from './config/videojs.config'
+
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    Switch
+} from 'react-router-dom'
+
 const React = require('react');
 
 class Recordings extends React.Component {
 
     constructor(props) {
         super(props);
-        Recordings.handleClick = Recordings.handleClick.bind(this);
+        Recordings.onClickLink = Recordings.onClickLink.bind(this);
     }
 
-    static handleClick(event ,recording) {
-        alert(recording[0].play_url);
+    static onClickLink(download_url) {
+        videoJsOptions.sources[0].src = download_url;
     }
 
     static renderRecordings(recordings) {
         if (recordings.length > 0) {
             return recordings.map((recording, index) => (
                 <li className="App-list">
-                    <recording key={recording.id}>
+                    <Link to={`/video/${recording[0].id}`}
+                          onClick={() => Recordings.onClickLink(recording[0].download_url)}
+                          key={recording[0].id}>
                         {recording[0].recording_start}
-                        <button onClick={event => Recordings.handleClick(event, recording)}>
-                            Play
-                        </button>
-                    </recording>
+                    </Link>
                 </li>
             ));
         }
@@ -29,15 +38,22 @@ class Recordings extends React.Component {
 
     render() {
         const recordings = Recordings.renderRecordings(this.props.recordings);
-
         return (
-            <div>
-            <section>
-                { recordings }
-            </section>
-            </div>
+           <Router>
+               <div>
+                   <Switch>
+                       <Route path="/video/:id" component={Video}/>
+                       <Route path='/test/:id' component={About}/>
+                   </Switch>
+                   <section>{ recordings }</section>
+               </div>
+           </Router>
         );
     }
 }
 
-module.exports = Recordings;
+const About = ({match}) => (
+    <div>a</div>
+);
+
+export default Recordings;
