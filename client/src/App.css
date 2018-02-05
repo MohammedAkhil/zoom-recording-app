@@ -4,8 +4,8 @@
 
 .App-list {
   text-align: left;
-  margin-bottom: 2.5mm;
-  margin-left: 2cm
+  margin-bottom: 6mm;
+  margin-left: 3cm
 }
 
 .App-logo {
@@ -44,6 +44,10 @@
 
 .App-intro {
   font-size: large;
+}
+
+.Video-stop {
+  alignment: center;
 }
 
 @keyframes App-logo-spin {
