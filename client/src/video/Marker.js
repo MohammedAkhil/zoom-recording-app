@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 
 class Marker extends Component {
-    constructor() {
+    constructor(props) {
+        alert("ready");
         super(props)
     }
 
     getMessages(chatString) {
         let chat = [];
         const regexp = /[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}/g;
-        const expression = '00:00:17	mohammed akhil:	yolo 00:00:18	mohammed akhil:	dfd';
+        const expression = '00:00:1	mohammed akhil:	yolo 00:00:3	mohammed akhil:	dfd';
 
         regexp[Symbol.split](expression).forEach((item, index) => {
             if (index !== 0) chat.push({text: item})
@@ -40,7 +41,7 @@ class Marker extends Component {
             <p>
                 {
                     this.props.video.markers({
-                        markers: this.getMessages(this.props.chatString)
+                        markers: this.getMessages('')
                     })
                 }
             </p>
