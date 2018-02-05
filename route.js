@@ -8,7 +8,6 @@ let client_io;
 getSocketIo((err, io) => {
     io.sockets.on('connection', (client) => {
         client_io = client;
-        console.log('lalala');
         client.on('subscribe', (interval) => {
             console.log('client is subscribing to api');
             getRecordings('a')
@@ -36,11 +35,9 @@ router.post('/', function(req, res, next) {
     console.log('STATUS--->' + status);
     const type = req.body.type || '';
     if (type === 'RECORDING_MEETING_COMPLETED') {
-        console.log(req.body);
         getRecordings(req.body.content.host_id)
         .then(data => {
             res.sendStatus(200);
-            console.log(data.meetings)
             client_io.emit('recording', data.meetings);
         })
         .catch(error => {
