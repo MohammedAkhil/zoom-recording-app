@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import videojs from 'video.js'
 import './Video.css';
+import 'video.js/dist/video-js.css'
+import './videojs.markers.css'
 
 import videoJsOptions from './../config/videojs.config'
 
@@ -98,7 +100,7 @@ class Video extends Component {
                     <div data-vjs-player  className="Video-Screen">
                         <video id = 'videox'
                                ref={node => this.videoNode = node}
-                               className="video-js"/>
+                               className="video-js vjs-default-skin"/>
                     </div>
                     <br/>
                     <button onClick={this.back}>
