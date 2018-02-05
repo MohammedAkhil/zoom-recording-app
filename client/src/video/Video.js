@@ -70,8 +70,8 @@ class Video extends Component {
                         'width':'100%',
                         'height': '20%',
                         'background-color': 'rgba(0,0,0,0.7)',
-                        'color': 'white',
-                        'font-size': '20px'
+                        'color': 'yellow',
+                        'font-size': '15px'
                     },
                     text: function(marker) {
                         return marker.overlayText;
