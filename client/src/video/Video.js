@@ -37,6 +37,18 @@ function getTimestamp(text) {
     return markerTime;
 }
 
+function fetchChat (chat_url) {
+    let linkChat = server + `/api/recordings/chat/?chat_url=${chat_url}`;
+    return new Promise((resolve, reject) => {
+        fetch(linkChat, {
+            method: 'GET',
+            mode: 'cors'
+        }).then(res => res.json())
+            .then(data => resolve(data.text))
+            .catch(err => reject(err))
+    })
+}
+
 class Video extends Component {
 
     back = (e) => {
