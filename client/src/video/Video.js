@@ -67,11 +67,19 @@ class Video extends Component {
                     display: true,
                     displayTime: 3,
                     style:{
-                        'width':'100%',
-                        'height': '20%',
+                        // 'width':'100%',
+                        // 'height': '20%',
+
                         'background-color': 'rgba(0,0,0,0.7)',
-                        'color': 'yellow',
-                        'font-size': '15px'
+                        'color': 'white',
+                        // 'font-size': '15px'
+                        'width': '30%',
+                        'height':'20%',
+                        'font-size':'10px',
+                        'margin-top':'300px'
+
+
+            
                     },
                     text: function(marker) {
                         return marker.overlayText;
