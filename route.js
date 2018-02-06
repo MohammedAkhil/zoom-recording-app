@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const fetch = require('node-fetch');
+var cors = require('cors');
 const getSocketIo = require('./server');
 
 let client_io;
@@ -25,8 +26,7 @@ getSocketIo((err, io) => {
 
 /* GET test page. */
 router.get('/test', (req, res, next) => {
-    console.log("inside get")
-    res.send({ express: 'Hello From Express' });
+    res.send('hello')
 });
 
 /* POST home page. */
@@ -44,6 +44,19 @@ router.post('/', function(req, res, next) {
             console.log(error);
         });
     }
+});
+
+router.get('/chat', cors(), function (req, res) {
+    fetch(req.query.chat_url, {
+        method: 'get'
+    }).then(data => data.body._readableState.buffer.head.data.toString())
+        .then(chatMessage => res.send({text: chatMessage}))
+        .catch(err => {
+            console.log(err);
+            res.status(500);
+            res.send(err);
+        });
+
 });
 
 const getRecordings = user_id => {
