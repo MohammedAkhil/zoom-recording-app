@@ -40,6 +40,8 @@ function getTimestamp(text) {
 }
 
 function fetchChat (chat_url) {
+    alert(server);
+    console.log(server);
     let linkChat = server + `/api/recordings/chat/?chat_url=${chat_url}`;
     return new Promise((resolve, reject) => {
         fetch(linkChat, {
@@ -86,7 +88,7 @@ class Video extends Component {
                             'height': '12%',
                             'background-color': 'rgba(0,0,0,0.7)',
                             'color': 'white',
-                            // 'font-size': '15px'
+                            //'font-size': '15px'
                             'font-size':'15px',
                             'margin-top':'300px'
 
