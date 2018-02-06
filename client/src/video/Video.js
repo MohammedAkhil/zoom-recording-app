@@ -56,51 +56,51 @@ class Video extends Component {
         this.props.history.goBack();
     };
 
-    componentDidMount() {
-        this.player = videojs(this.videoNode, videoJsOptions, function onPlayerReady() {
-
-            this.markers({
-                markerStyle: {
-                    'width':'7px',
-                    'border-radius': '30%',
-                    'background-color': 'red'
-                },
-                markerTip:{
-                    display: true,
-                    text: function(marker) {
-                        return marker.text;
+    async componentDidMount() {
+        if (this.props.chat_url) {
+            let chatText = await fetchChat(this.props.chat_url);
+            const markerData = await getMarkers(chatText);
+            this.player = videojs(this.videoNode, videoJsOptions, function onPlayerReady() {
+                this.markers({
+                    markerStyle: {
+                        'width': '7px',
+                        'border-radius': '30%',
+                        'background-color': 'red'
                     },
-                    time: function(marker) {
-                        return marker.time;
-                    }
-                },
-                breakOverlay:{
-                    display: true,
-                    displayTime: 3,
-                    style:{
-                        // 'width':'100%',
-                        // 'height': '20%',
-
-                        'background-color': 'rgba(0,0,0,0.7)',
-                        'color': 'white',
-                        // 'font-size': '15px'
-                        'width': '30%',
-                        'height':'20%',
-                        'font-size':'10px',
-                        'margin-top':'300px'
-
-
-            
+                    markerTip: {
+                        display: true,
+                        text: function (marker) {
+                            return marker.text;
+                        },
+                        time: function (marker) {
+                            return marker.time;
+                        }
                     },
-                    text: function(marker) {
-                        return marker.overlayText;
-                    }
-                },
-                onMarkerClick: function(marker) {},
-                onMarkerReached: function(marker) {},
-                markers: getMessages('')
+                    breakOverlay: {
+                        display: true,
+                        displayTime: 3,
+                        style:{
+                            'width':'100%',
+                            'height': '12%',
+                            'background-color': 'rgba(0,0,0,0.7)',
+                            'color': 'white',
+                            // 'font-size': '15px'
+                            'font-size':'15px',
+                            'margin-top':'300px'
+
+                        },
+                        text: function (marker) {
+                            return marker.overlayText;
+                        }
+                    },
+                    onMarkerClick: function (marker) {
+                    },
+                    onMarkerReached: function (marker) {
+                    },
+                    markers: markerData
+                });
             });
-        });
+        }
     }
 
     // destroy player on unmount
