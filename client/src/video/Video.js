@@ -89,8 +89,8 @@ class Video extends Component {
                                 'color': 'white',
                                 //'font-size': '15px'
                                 'font-size':'15px',
-                                'margin-top':'300px'
-
+                                'position': 'absolute',
+                                'top': '20px',
                             },
                             text: function (marker) {
                                 return marker.overlayText;
@@ -123,7 +123,7 @@ class Video extends Component {
                     <div data-vjs-player  className="Video-Screen">
                         <video id = 'videox'
                                ref={node => this.videoNode = node}
-                               className="video-js vjs-default-skin"/>
+                               className="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered"/>
                     </div>
                     <br/>
                     <button onClick={this.back}>
