@@ -40,7 +40,7 @@ function getTimestamp(text) {
 }
 
 function fetchChat (chat_url) {
-    let linkChat = server + '/api/recordings/chat/?chat_url=' + chat_url;
+    let linkChat = server + 'api/recordings/chat/?chat_url=' + chat_url;
     alert(linkChat);
     return new Promise((resolve, reject) => {
         fetch(linkChat, {
