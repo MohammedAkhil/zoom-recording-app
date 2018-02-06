@@ -3,29 +3,28 @@ import videojs from 'video.js'
 import './Video.css';
 
 import videoJsOptions from './../config/videojs.config'
+import server from './../config/config'
 
-function getMessages(chatString) {
-    let chat = [];
-    const regexp = /[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}/g;
-    const expression = '00:00:05 mohammed akhil:hey 00:00:09 akhil: hey mohammed! 00:00:12 mohammed akhil: i need a clarification 00:00:24 akhil: what is it';
-
-    regexp[Symbol.split](expression).forEach((item, index) => {
-        if (index !== 0) chat.push({
-            text: item,
-            overlayText: item,
-            class: 'custom-marker'
-        })
+async function getMarkers(text) {
+    return new Promise( (resolve, reject) => {
+        let chat = [];
+        const regexp = /[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}/g;
+        regexp[Symbol.split](text).forEach((item, index) => {
+            if (index !== 0) chat.push({
+                text: item,
+                overlayText: item,
+                class: 'custom-marker'
+            });
+        });
+        getTimestamp(text).forEach((item, index) => {
+            chat[index].time = item;
+        });
+        resolve(chat);
     });
-
-    getTimestamp(chat).forEach((item, index) => {
-        chat[index].time = item;
-    });
-    return chat;
 }
 
-function getTimestamp(chatString) {
+function getTimestamp(text) {
     const regexp = new RegExp('[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}', 'g');
-    const text = '00:00:05 mohammed akhil:hey 00:00:09 akhil: hey mohammed! 00:00:12 mohammed akhil: i need a clarification 00:00:24 akhil: what is it';
     let buffer;
     let seconds;
     let markerTime = [];
