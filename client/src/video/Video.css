@@ -11,15 +11,17 @@
 }
 .Video-dialog {
     position: absolute;
-    background: #fff;
-    top: 20mm;
-    left: 10%;
-    right: 10%;
-    padding: 10mm;
+    background: rgba(0, 0, 0, 0.75);
+    left: 0;
+    right: 0;
+    padding: 5% 16%;
     border: 2px solid #444;
 }
-
-
-
-
-
+.Video-button {
+    content: 'close';
+    position: absolute;
+    right: 8%;
+    padding: 12px;
+    background: white url("./../x.svg");
+    border-radius: 20px;
+}

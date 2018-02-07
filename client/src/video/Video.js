@@ -122,15 +122,14 @@ class Video extends Component {
         return (
             <div className="Video-dim">
                 <div className='Video-dialog'>
+                    <button className='Video-button' onClick={this.back}/>
+                    <br/><br/>
                     <div data-vjs-player  className="Video-Screen">
                         <video id = 'videox'
                                ref={node => this.videoNode = node}
                                className="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered"/>
                     </div>
-                    <br/>
-                    <button onClick={this.back}>
-                        back
-                    </button>
+
                 </div>
             </div>
         )
