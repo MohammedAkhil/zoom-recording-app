@@ -7,6 +7,8 @@ import './videojs.markers.css'
 import videoJsOptions from './../config/videojs.config'
 import server from './../config/config'
 
+const CHAT_URL = 'api/recordings/chat/?chat_url=';
+
 async function getMarkers(text) {
     return new Promise( (resolve, reject) => {
         let messages = [];
@@ -29,7 +31,7 @@ async function getMarkers(text) {
 }
 
 function fetchChat (chat_url) {
-    let linkChat = server + 'api/recordings/chat/?chat_url=' + chat_url;
+    let linkChat = server + CHAT_URL + chat_url;
     return new Promise((resolve, reject) => {
         fetch(linkChat, {
             method: 'GET',
@@ -39,6 +41,52 @@ function fetchChat (chat_url) {
             .catch(err => reject(err))
     })
 }
+
+const setMarkers = (context, markerData) => {
+    context.markers({
+        markerStyle: {
+            'width': '7px',
+            'border-radius': '30%',
+            'background-color': 'blue'
+        },
+        markerTip: {
+            display: true,
+            text: function (marker) {
+                return marker.username +marker.text;
+            },
+            time: function (marker) {
+                return marker.time;
+            }
+        },
+        breakOverlay: {
+            display: true,
+            displayTime: 2,
+            style: {
+                'position': 'absolute',
+                'height': 'fit-content',
+                'width': 'fit-content',
+                'top': 'unset',
+                'color': 'white',
+                'font-size': '12px',
+                'background' : 'dodgerblue',
+                'border-radius': '20px'
+            },
+            text: function (marker) {
+                return marker.username.bold() +' ' + marker.overlayText;
+            }
+        },
+        onMarkerClick: function (marker) {},
+        onMarkerReached: function (marker) {
+            const tip = document.querySelectorAll('.custom-marker')[marker.position];
+            const seekBar = document.querySelector('.vjs-progress-control.vjs-control');
+            const overlay = document.querySelector('.vjs-break-overlay');
+            overlay.style.bottom = seekBar.offsetHeight + 'px';
+            overlay.style.left = tip.offsetLeft
+                + seekBar.offsetLeft + 'px';
+        },
+        markers: markerData
+    });
+};
 
 class Video extends Component {
 
@@ -53,45 +101,10 @@ class Video extends Component {
                 let chatText = await fetchChat(this.props.chat_url);
                 const markerData = await getMarkers(chatText);
                 this.player = videojs(this.videoNode, videoJsOptions, function onPlayerReady() {
-                    this.markers({
-                        markerStyle: {
-                            'width': '7px',
-                            'border-radius': '30%',
-                            'background-color': 'red'
-                        },
-                        markerTip: {
-                            display: true,
-                            text: function (marker) {
-                                return marker.text;
-                            },
-                            time: function (marker) {
-                                return marker.time;
-                            }
-                        },
-                        breakOverlay: {
-                            display: true,
-                            displayTime: 3,
-                            style:{
-                                'width':'100%',
-                                'height': '12%',
-                                'background-color': 'rgba(0,0,0,0.7)',
-                                'color': 'white',
-                                //'font-size': '15px'
-                                'font-size':'15px',
-                                'position': 'absolute',
-                                'top': '20px',
-                            },
-                            text: function (marker) {
-                                return marker.overlayText;
-                            }
-                        },
-                        onMarkerClick: function (marker) {
-                        },
-                        onMarkerReached: function (marker) {
-                        },
-                        markers: markerData
-                    });
+                    setMarkers(this, markerData);
                 });
+
+                window.player = this.player;
             } catch (err) {
                 alert(err)
             }
