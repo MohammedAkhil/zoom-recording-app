@@ -60,7 +60,7 @@ router.get('/chat', cors(), function (req, res) {
 });
 
 const getRecordings = user_id => {
-    const url = `https://api.zoom.us/v2/users/bxffJu2QT1CckvCzNgbx4A/recordings?from=2018-01-24&to=2018-01-30`;
+    const url = `https://api.zoom.us/v2/users/bxffJu2QT1CckvCzNgbx4A/recordings?from=2018-01-30&to=2018-02-07`;
     return new Promise( (resolve, reject) => {
         fetch(url, {
             method: 'get',
