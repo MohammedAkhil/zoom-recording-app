@@ -9,34 +9,23 @@ import server from './../config/config'
 
 async function getMarkers(text) {
     return new Promise( (resolve, reject) => {
-        let chat = [];
-        const regexp = /[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}/g;
-        regexp[Symbol.split](text).forEach((item, index) => {
-            if (index !== 0) chat.push({
-                text: item,
-                overlayText: item,
+        let messages = [];
+        let chats = text.split('\n');
+        chats.forEach((chat, index) => {
+            if (index === chats.length - 1) return;
+            let chatItem = chat.split('\t');
+            const time = chatItem[0].split(':');
+            messages.push({
+                position: index,
+                time: (+time[0]) * 60 * 60 + (+time[1]) * 60 + (+time[2]),
+                username: chatItem[1],
+                overlayText: chatItem[2],
+                text: chatItem[2],
                 class: 'custom-marker'
-            });
+            })
         });
-        getTimestamp(text).forEach((item, index) => {
-            chat[index].time = item;
-        });
-        resolve(chat);
+        resolve(messages);
     });
-}
-
-function getTimestamp(text) {
-    const regexp = new RegExp('[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}', 'g');
-    let buffer;
-    let seconds;
-    let markerTime = [];
-
-    while ((buffer = regexp.exec(text)) !== null) {
-        const time = buffer[0].split(':');
-        seconds = (+time[0]) * 60 * 60 + (+time[1]) * 60 + (+time[2]);
-        markerTime.push(seconds)
-    }
-    return markerTime;
 }
 
 function fetchChat (chat_url) {
