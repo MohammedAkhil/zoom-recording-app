@@ -75,9 +75,21 @@ const getToken = () => {
     return jwt.sign(payload, process.env.API_SECRET);
 };
 
+function formatDate(date) {
+    let d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
 const getRecordings = user_id => {
     const token = getToken();
-    const url = `https://api.zoom.us/v2/users/bxffJu2QT1CckvCzNgbx4A/recordings?from=2018-01-30&to=2018-02-07`;
+    const url = `https://api.zoom.us/v2/users/bxffJu2QT1CckvCzNgbx4A/recordings?from=2018-02-01&to=${formatDate(new Date())}`;
     return new Promise( (resolve, reject) => {
         fetch(url, {
             method: 'get',
