@@ -5,15 +5,21 @@ import './App.css';
 import { subscribeToApi } from './api';
 import markers from './../src/video/videojs.markers'
 import Recordings from './Recordings';
-
+let meetingData = [];
 const getRecordings = (meetings) => {
     let recordings = [];
     meetings.forEach(meeting => {
         /** @namespace meeting.recording_files */
         recordings.push(meeting.recording_files);
+        meetingData.push(meeting)
     });
     return recordings;
+
 };
+
+const About = () => (
+    <div><br/><br/><br/><br/>This Website is a PoC (Proof of concept)</div>
+);
 
 class App extends Component {
 
@@ -34,19 +40,23 @@ class App extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Zoom Api - Cloud recordings</h1>
+                    <img src={logo} className="App-header-image"  alt="logo" />
+                    <h1 className="App-header-text">Cloud recordings</h1>
+
                 </header>
 
                 { this.state.is_loading ?  <div id="visible"><img src={loader} className = "App-loader" alt="logo" /> </div>: null }
 
                 <p className="App-intro">
                     <ul>
-                        <h3 className = "App-list"> Videos</h3>
-                        <Recordings recordings = {this.state.recordings}/>
+                        <Recordings recordings = {this.state.recordings} meetings = {meetingData}/>
                     </ul>
                 </p>
-                <footer className="App-footer"><h1 className="App-title">www.gyanmatrix.com</h1></footer>
+
+                <footer className="App-footer">
+                    <About/>
+                    <text>www.gyanmatrix.com</text>
+                </footer>
             </div>
         );
     }

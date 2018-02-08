@@ -13,7 +13,6 @@ let chat_url = '';
 
 class Recordings extends React.Component {
 
-
     constructor(props) {
         super(props);
         Recordings.onClickLink = Recordings.onClickLink.bind(this);
@@ -28,17 +27,17 @@ class Recordings extends React.Component {
         }
     }
 
-    static renderRecordings(recordings) {
+    static renderRecordings(recordings, meetings) {
         if (recordings.length > 0) {
             return recordings.map((recording, index) => (
                 <li className="App-list"
                     key={recording[0].id}>
-
                     <Link to={`/video/${recording[0].id}`}
-                          onClick={() => Recordings.onClickLink(recording)}
-                    >
-                        {recording[0].recording_start}
-                    </Link>
+                          onClick={() => Recordings.onClickLink(recording)}>
+                        {recording[0].id}
+                    </Link><br/>
+                    <text>{meetings[index].topic}</text><br/>
+                    <text className='list-item-time'> {recording[0].recording_start}</text>
                 </li>
             ));
         }
@@ -46,7 +45,7 @@ class Recordings extends React.Component {
     }
 
     render() {
-        const recordings = Recordings.renderRecordings(this.props.recordings);
+        const recordings = Recordings.renderRecordings(this.props.recordings, this.props.meetings);
         return (
            <Router>
                <div>
