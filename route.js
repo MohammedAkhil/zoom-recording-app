@@ -1,7 +1,11 @@
+if (process.env.LOGNAME === 'akhil') {
+    require('./config')
+}
 const express = require('express');
 const router = express.Router();
 const fetch = require('node-fetch');
-var cors = require('cors');
+const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const getSocketIo = require('./server');
 
 let client_io;
@@ -59,14 +63,24 @@ router.get('/chat', cors(), function (req, res) {
 
 });
 
+const getToken = () => {
+    const payload = {
+        iss: process.env.API_KEY,
+        exp: ((new Date()).getTime() + 5000)
+    };
+    //Automatically creates header, and returns JWT
+    return jwt.sign(payload, process.env.API_SECRET);
+};
+
 const getRecordings = user_id => {
+    const token = getToken();
     const url = `https://api.zoom.us/v2/users/bxffJu2QT1CckvCzNgbx4A/recordings?from=2018-01-30&to=2018-02-07`;
     return new Promise( (resolve, reject) => {
         fetch(url, {
             method: 'get',
             headers: {
               "Content-type": "application/json; charset=UTF-8",
-              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJRajNmOHo4c1RtZWpRM1JrOWV1eUtnIiwiZXhwIjoxNTE2Nzk1ODAxOTUzLCJpYXQiOjE1MTY3OTU3OTZ9.W3DyuXKtEt55nTEKCCBWBYL3IPQCHvh1KUI1j0IRDRc"
+              "Authorization": "Bearer " + token
             }
           })
           .then(res => {
