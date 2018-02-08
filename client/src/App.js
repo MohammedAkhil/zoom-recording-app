@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import loader from './settings.png';
-import logo from './camera.png';
+import loader from './loader.svg';
+import logo from './video.svg';
 import './App.css';
 import { subscribeToApi } from './api';
 import markers from './../src/video/videojs.markers'

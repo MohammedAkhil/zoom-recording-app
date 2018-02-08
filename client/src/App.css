@@ -4,8 +4,8 @@
 
 .App-list {
   text-align: left;
-  margin-bottom: 6mm;
-  margin-left: 3cm
+  margin-bottom: 10mm;
+  margin-left: 7%
 }
 
 .App-logo {
@@ -18,17 +18,32 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
+  height: 100px;
   padding: 20px;
-  color: white;
+  color: black;
+  margin-bottom: 4%;
+}
+
+.App-header-image {
+  float: left;
+  height: 80px;
+  margin-top: 3%;
+  margin-right: 12px;
+  margin-left: 5%;
+}
+.App-header-text {
+  margin-top: 4.5%;
+  left:16px;
+  float: left;
+  font-size: 2.2em;
+
 }
 
 .App-footer {
-  background-color: #222;
-  height: 100px;
-  padding: 20px;
-  color: white;
+  height: fit-content;
+  background: rgba(129,127,160,0.11);
+  margin: 10px;
+  color: black;
 }
 
 .App-title {
@@ -48,6 +63,18 @@
 
 .Video-stop {
   alignment: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+text {
+  font-size: small;
+}
+
+.list-item-time {
+  color: rgba(38,40,55,0.6);
 }
 
 @keyframes App-logo-spin {
