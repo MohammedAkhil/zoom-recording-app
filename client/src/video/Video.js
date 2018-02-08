@@ -96,18 +96,19 @@ class Video extends Component {
     };
 
     async componentDidMount() {
-        if (this.props.chat_url) {
+        window.scrollTo(0, 0);
+        if (this.props.chat_url !== 'x') {
             try {
                 let chatText = await fetchChat(this.props.chat_url);
                 const markerData = await getMarkers(chatText);
                 this.player = videojs(this.videoNode, videoJsOptions, function onPlayerReady() {
                     setMarkers(this, markerData);
                 });
-
-                window.player = this.player;
             } catch (err) {
                 alert(err)
             }
+        } else {
+            this.player = videojs(this.videoNode, videoJsOptions, function onPlayerReady() {});
         }
     }
 

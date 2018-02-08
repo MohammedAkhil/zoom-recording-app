@@ -39,6 +39,7 @@ router.post('/', function(req, res, next) {
     console.log('STATUS--->' + status);
     const type = req.body.type || '';
     if (type === 'RECORDING_MEETING_COMPLETED') {
+        console.log('TYPE--->' + type);
         getRecordings(req.body.content.host_id)
         .then(data => {
             res.sendStatus(200);
@@ -47,6 +48,8 @@ router.post('/', function(req, res, next) {
         .catch(error => {
             console.log(error);
         });
+    } else {
+        res.sendStatus(200)
     }
 });
 

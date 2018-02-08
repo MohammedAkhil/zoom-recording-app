@@ -14,7 +14,8 @@
 
 .App-loader {
   animation: App-logo-spin infinite 2s linear;
-  height: 80px;
+  height: 60px;
+  margin-top:10%;
 }
 
 .App-header {
@@ -42,6 +43,7 @@
 .App-footer {
   height: fit-content;
   background: rgba(129,127,160,0.11);
+  alignment: center;
   margin: 10px;
   color: black;
 }

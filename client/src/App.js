@@ -45,18 +45,17 @@ class App extends Component {
 
                 </header>
 
-                { this.state.is_loading ?  <div id="visible"><img src={loader} className = "App-loader" alt="logo" /> </div>: null }
+                { this.state.is_loading ?
+                    <div id="visible"><img src={loader} className = "App-loader" alt="logo" /> </div>
+                    : null}
 
                 <p className="App-intro">
                     <ul>
                         <Recordings recordings = {this.state.recordings} meetings = {meetingData}/>
                     </ul>
                 </p>
-
-                <footer className="App-footer">
-                    <About/>
-                    <text>www.gyanmatrix.com</text>
-                </footer>
+                <br/>
+                <br/><br/>
             </div>
         );
     }
