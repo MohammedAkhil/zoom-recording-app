@@ -41,7 +41,7 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <img src={logo} className="App-header-image"  alt="logo" />
-                    <h1 className="App-header-text">Cloud recordings</h1>
+                    <h4 className="App-header-text">Cloud recordings</h4>
 
                 </header>
 
